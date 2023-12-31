@@ -2,7 +2,7 @@
 
 class cons;
   rand bit[2:0]a;
-  bit b;
+  rand bit b;
   constraint x {
     if(a inside {[0:1]})		
       b == 0;
@@ -11,7 +11,7 @@ class cons;
       b == 1;
   } 
   
-  constraint y {a dist {4:=60, [0:3]:/40};}
+  constraint y {a dist {[4:7]:/60, [0:3]:/40};}
   
   function void post_randomize();
   $display("Value of a is %p and b is %p",a,b);

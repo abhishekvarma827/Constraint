@@ -1,0 +1,38 @@
+class cons;
+  rand bit[3:0]a;
+  rand bit[3:0]b;
+  //*****************STATIC CONSTRAINT*****************
+  
+/*  If we create 2 instaces of the class (cons c & c1) then if we make c1.constraint_mode(0) then it will turn off the constraint for both the classes instances.*/
+  
+ static constraint p {a>10;}
+  constraint p1 {a<15;}
+ // constraint in {b inside{[5:9]};}
+  
+endclass
+
+module top;
+  cons c,c1;
+  initial begin
+  c = new();
+  c1 = new();  
+  
+    for(int i = 0; i<6; i++)
+   begin 
+     c.randomize(); 
+        
+        //*****************IN-LINE CONSTRAINTS*****************
+      
+    // c1.randomize() with {b == 0;}; 
+    
+     if(! c1.randomize() with {b == 0;})
+       $display("Randomization failed"); //working as a function.
+     
+  $display("Value of c.a is %p  |  c1.a is %p  |  c.b is %p | c1.b is %p",c.a,c1.a,c.b,c1.b);
+        //To turn off the constraint class handle.constraint_name(0)
+        c.p.constraint_mode(0);
+      //  c.p1.constraint_mode(0);
+       
+end
+  end
+endmodule

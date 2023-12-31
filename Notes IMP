@@ -1,0 +1,97 @@
+
+/*
+Constraints can be placed either inside the class body definition or outside it. When constraints are defined outside a class's body, they are called external constraints and are accessed by using the scope resolution operator ::*/
+
+
+//Q3:Write a constraint to generate below pattern 9 19 29 39 49 59 69 79
+
+
+class cons;
+  rand bit [7:0]a;
+  randc bit [7:0]b;
+  rand int c[];
+  rand bit [7:0]d;
+  rand bit [7:0]e;
+  
+ // constraint w {a.size == 10} // Use if dealing with the dynamic array.
+  
+  
+  
+ // ----------Variable a ---------------
+  
+  
+  constraint x {a inside {[0:20]};}
+  constraint y {!(a inside {[0:5]});}
+
+  constraint z {!(a == 6);  			 // constraint z {!(a == 6);}
+                !(a == 7);				 // constraint p {!(a == 7);}
+                !(a == 8);}				 // constraint q {!(a == 8);}
+  
+  
+  
+  
+//   ----------Variable b ---------------
+  
+  
+  constraint r  {b < 20; b > 0;}
+  constraint s  {b inside {[11:20]};}
+  constraint t {b inside {12,13,14,15,16,17};}
+  
+  //constraint mix {a>2; b<a; a<18;} 
+  // Use of multiple operators in a single expression is not allowed
+
+    constraint mix {a>2; 
+                    b<a; 
+                    a<18;}
+
+  //You cannot make assignments inside a constraint block as it only contains expressions.
+  
+  
+  
+//   ----------Variable c ---------------
+  
+  
+  constraint ee {c.size == 5;}
+  
+ //constraint f {c inside {[0:20]};}
+ //Expression on left hand side of inside operator can only be of singular type 
+  
+ // constraint g {c dist {0:/20, [1:10]:/40, [11:19]:=40, 20:=20};}
+ // (dynamic array) is not allowed for dist expression
+  
+  
+  
+  
+   // ----------Variable d ---------------
+  
+
+// extern constraint ext1;        **********ERROR************ If not defining outside the class
+ constraint ext1;               //**********NO ERROR************
+ extern constraint ext;
+ extern constraint ext_dist; 
+ extern constraint imp;         // **********IMPLICATION OPERATOR -> ************
+ extern constraint imp1; 
+ extern constraint imp2;
+  
+  function void post_randomize();
+    $display("Generated value of a is %p | b is %p | c is %p | d is %p | e is %p",a,b,c,d,e);  
+  endfunction
+endclass 
+
+constraint cons :: ext {d<16; d>0;}            // [7:0] -- 128 -- 256 [3:0]
+constraint cons :: imp {d inside{[0:2]} -> e == 0;}
+constraint cons :: imp1 {d inside{[3:5]} -> e == 1;}
+constraint cons :: imp2 {d inside{[6:8]} -> e inside{[2:4]};}
+constraint cons :: ext_dist {d dist {0:=20, [1:5]:/30, [6:8]:/20, [7:15]:/40};}			
+
+
+module top;
+  cons c;
+  initial begin
+    for (int i = 0; i<15; i++) begin
+     c = new();
+    assert(c.randomize());
+    //  $display();
+    end
+  end
+endmodule

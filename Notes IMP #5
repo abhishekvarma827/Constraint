@@ -7,7 +7,10 @@ class cons;
   
  static constraint p {a>10;}
   constraint p1 {a<15;}
- // constraint in {b inside{[5:9]};}
+  
+   //*****************SOFT CONSTRAINTS*****************
+  
+  constraint in {soft b inside{[5:9]};} //randomization fails if this runs
   
 endclass
 
@@ -25,12 +28,24 @@ module top;
       
     // c1.randomize() with {b == 0;}; 
     
-     if(! c1.randomize() with {b == 0;})
+     if(! c1.randomize() with {b dist {[0:4]};})
        $display("Randomization failed"); //working as a function.
      
   $display("Value of c.a is %p  |  c1.a is %p  |  c.b is %p | c1.b is %p",c.a,c1.a,c.b,c1.b);
-        //To turn off the constraint class handle.constraint_name(0)
+     
+             /*****************DISABLE CONSTRAINTS*****************
+      Constraints can be disabled or enabled by constraint_mode() -- can be both 
+     
+     -> function - Retun the current state of the given constraint. class handle.constraint_name()
+     -> task - Does not return anything just have input argument just to turn ON or OFF the constraint
+     class handle.constraint_name(0,1)
+     
+     To turn off the constraint class handle.constraint_name(0,1)*/
         c.p.constraint_mode(0);
+     if(c.p.constraint_mode())
+       $display("Constraint p is enabled");
+     else 
+       $display("Constraint p is disabled");
       //  c.p1.constraint_mode(0);
        
 end

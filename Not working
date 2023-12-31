@@ -1,0 +1,33 @@
+//Write a constraint if a is inside [0:1] b = 0, else 1;
+
+class cons;
+  rand bit[2:0]a;
+  bit b;
+  constraint x {
+    if(a inside {[0:1]})		
+      b == 0;
+    else 
+      if(a inside {[4:7]})
+      b == 1;
+  } 
+  
+  constraint y {a dist {4:=60, [0:3]:/40};}
+  
+  function void post_randomize();
+  $display("Value of a is %p and b is %p",a,b);
+  endfunction
+endclass
+
+
+
+module top;
+  cons c;
+  initial begin
+  c = new();
+  
+    for(int i = 0; i<20; i++)
+    assert(c.randomize());
+   // $display("Value of a is %p and b is %p",a,b);
+  
+end
+endmodule

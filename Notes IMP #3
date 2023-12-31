@@ -1,0 +1,54 @@
+//Write a constraint if a[0:3] b = 0 | a[0:3] b = 0  | a[4:7] b = 1  | a[8:11] b = 2 | a[12:15] b = 3
+
+class cons;
+  rand bit[3:0]a;
+  rand bit [1:0]b;
+  bit flag;
+  
+  constraint x {
+    if(a inside {[0:3]})		
+      b == 0;
+    else 
+      if(a inside {[4:7]})
+      b == 1;
+    else 
+      if(a inside {[8:11]})
+      b == 2;
+    else 
+      if(a inside {[12:15]})
+      b == 3;
+  } 
+  
+  constraint y {a dist {[8:15]:/60, [0:7]:/40};}
+   
+  function void post_randomize();
+   $display("Value of a is %p and b is %p",a,b);
+  endfunction
+endclass
+
+module top;
+  cons c,c1;
+  bit flag;
+  bit[3:0]z;
+  initial begin
+  c = new();
+  c1 = new();  
+  
+    for(int i = 0; i<6; i++)
+      begin
+      z = $urandom;
+    c.randomize();
+  
+       
+     //*****************TERNARY OPERATOR*****************
+    for (int j=0; j<5; j++)
+      
+    flag = z inside{[0:7]} ? 1 : 0;
+    if(z inside{[0:7]})
+      $display("vaule of z is %p which is inside [0:7] so FLAG = %p",z,flag);
+  else
+    $display("vaule of z is %p which is not inside [0:7] so FLAG = %p",z,flag);
+      end
+   
+      end
+endmodule

@@ -1,7 +1,7 @@
 1) Write a constraint if a is inside [0:1] b = 0, else 1;
 2) Write a constraint if a[0:3] b = 0 | a[0:3] b = 0  | a[4:7] b = 1  | a[8:11] b = 2 | a[12:15] b = 3
 3) Write a constraint such that is value of a is 1 then b is 3.
-4) write a constraint to generate below pattern 5 -10 15 -20 25 -30
+4) write a constraint to generate below pattern 5 -10 15 -20 25 -30   XXXX
 5) Write a constraaint to generate the pattern 1122334455
 6) Write a code to generate random number between 1.35 and 2.57
 7) Write a constraint to generate the pattern 0102030405.

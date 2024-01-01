@@ -1,0 +1,79 @@
+class start;
+  rand bit [3:0]a;
+  rand bit [3:0]b;
+  
+  constraint first {a>5; a<10;};
+  
+  //****************PRE_RANDOMIZE & POST_RANDOMIZE*******************
+  
+  
+  function void pre_randomize();
+    $display("Before the randomization");
+  endfunction
+  
+  function void post_randomize();
+    $display("After the randomization");
+  endfunction
+  
+  //****************OVERRIDE*******************
+  
+/* -> If randomize() fails, then post_randomize() is not called
+   -> randomize() method is built-in and cannot be overriden 
+   -> If randomization fails, then the variables retain their original values and are not modified*/
+  
+  
+endclass
+
+
+module tb;
+  start st;
+  initial begin
+    st = new();
+    $display("Initial value of a is %d",st.a);
+    
+      
+    if(st.randomize())
+      $display("Randomization successfull ! ");
+      $display("Final value of a is %d",st.a);
+    
+    
+   //****************RAND_CASE*******************
+    
+    /*
+-> randomly pick one out of the many statements. The case item expressions are positive integer values that represent the weights associated with each item. Probability of selecting an item is derived by the division of that item's weight divided by the sum of all weights.
+
+-> The sum of all weights is 9, and hence the probability of taking the first branch is 1/9 or     11.11%, the probability of taking the second branch is 5/9 or 55.56% and the probability of taking the last branch is 3/9 or 33.33%.
+
+module tb; 
+initial
+  begin
+	for (int i = 0; i < 10; i++)
+ 
+ randcase
+0 : $display ("Wt 1");
+0 : $display ("Wt 5");   //if all the cases are 0 we will get the error.
+0 : $display ("Wt 3");
+endcase
+end
+endmodule
+
+*/
+    
+     //****************RAND_MODE*******************
+    
+    //Used to remove the randomization of the variables in a class so it will become the same as if they had not been declared rand or randc
+    
+    st.a.rand_mode(0);
+   // st.rand_mode(0); //Skipping the variables name will disable the rand_mode for all 
+    
+    
+    if(st.a.rand_mode())
+      $display("Rand mode is enabled for a");
+    else
+      $display("Rand mode is disabled for a");
+      if(st.b.rand_mode())
+        $display("Rand mode is enabled for b");
+    else
+      $display("Rand mode is disabled for b");
+  end
+endmodule

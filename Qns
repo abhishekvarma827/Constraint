@@ -1,0 +1,16 @@
+1) Write a constraint if a is inside [0:1] b = 0, else 1;
+2) Write a constraint if a[0:3] b = 0 | a[0:3] b = 0  | a[4:7] b = 1  | a[8:11] b = 2 | a[12:15] b = 3
+3) Write a constraint such that is value of a is 1 then b is 3.
+4) write a constraint to generate below pattern 5 -10 15 -20 25 -30
+5) Write a constraaint to generate the pattern 1122334455
+6) Write a code to generate random number between 1.35 and 2.57
+7) Write a constraint to generate the pattern 0102030405.
+8) Write constraint to generate random values 25,27,30,36,40,45 without using "set membership".
+9) Write a constraint to generate a random even number between 50 and 100.
+10) Write a for a 32 bit rand variable such that it should have 12 number of 1's non consecutively.
+11) Write a constraint to genarate FACTORIAL of first 5 even numbers and odd numbers . 
+12) Write a constraint such that even locations contains odd numbers and odd locations contains even numbers.
+13) Write a SystemVerilog program to randomize a 32-bit variable, but only randomize the 12th bit.
+14) Write a constraint on two dimensional array for generating even numbers in the first 4 locations and odd numbers 
+    in the next 4 locations.Also the even number should be in multiple of 4 and odd number should be multiple of 3.
+15) Constraint to generate bit[7:0] array1[10] with unique values and also multiple of 3.

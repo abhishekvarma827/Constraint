@@ -1,3 +1,0 @@
-1) Write a constraint if a is inside [0:1] b = 0, else 1;
-2) Write a constraint if a[0:3] b = 0 | a[0:3] b = 0  | a[4:7] b = 1  | a[8:11] b = 2 | a[12:15] b = 3
-3) Write a constraint such that is value of a is 1 then b is 3.

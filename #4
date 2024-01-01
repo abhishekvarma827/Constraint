@@ -1,0 +1,28 @@
+//write a constraint to generate below pattern 5 -10 15 -20 25 -30
+
+class cons;
+  rand int a [];
+  
+  
+  constraint c_1 {a.size == 6;}
+  constraint c_2 {foreach(a[i])
+    if(i%2 == 0)
+      a[i] == (i*5)+5;
+    else
+      a[i] == 5*(i+1) ;
+                 }
+
+  function void post_randomize ();
+    $display("Value is %p",a);
+  endfunction
+  
+endclass
+
+module tb;
+  cons c;
+  
+  initial begin
+    c = new();
+    c.randomize();
+  end
+endmodule

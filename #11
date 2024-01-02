@@ -1,0 +1,39 @@
+//11) Write a constraint to genarate FACTORIAL of first 5 even numbers and odd numbers . 
+
+
+class cons;
+  rand int even [];
+  rand int odd [];
+  
+  function int fact (int i);
+    if(i==0)
+      fact = 1;
+    else
+      fact = i*fact(i-1);
+  endfunction
+  
+  constraint a_0 {even.size == 5;}
+  constraint a_1 {odd.size == 5;}
+  
+  constraint a_3 {foreach(even[j])
+    even[j] == fact(2*j);}
+                     
+  constraint a_4 {foreach(odd[k])
+    odd[k] == fact((2*k)+1);}                 
+                 
+  
+  function void post_randomize();
+
+    $display("first 5 even number = %p \nfirst 5 odd number = %p",even,odd);
+  //  $display("Displaying the number of ones in the number = %p", $countones(even));
+  endfunction
+endclass
+
+module tb;
+  
+  cons c;
+initial begin
+  c = new();
+  c.randomize();  
+end
+endmodule

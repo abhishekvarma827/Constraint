@@ -1,0 +1,30 @@
+//Write a code to generate random number between 1.35 and 2.57
+
+
+
+class cons;
+  rand int a;
+  real b;
+  real c;
+  
+    constraint c_1 {a inside {[1350:2570]};}
+  //constraint c_2 {b == 0.001;} can not work on real data type
+  
+  
+  function void post_randomize();
+    b = 0.001;
+    c = a*b;
+    $display("Value of a is %p and b is %p",a,b);
+    $display("Required value is [%p]",c);
+  endfunction
+endclass
+
+module tb;
+  
+  cons c;
+initial begin
+  c = new();
+  repeat(5)
+  c.randomize();  
+end
+endmodule

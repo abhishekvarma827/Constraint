@@ -1,0 +1,32 @@
+//7) Write a constraint to generate the pattern 0102030405.
+											//  0123456789
+
+
+class cons;
+  rand int a[];
+  
+  constraint c_1 {a.size ==10;}
+  constraint c_2 {
+    foreach(a[i])
+      if(i%2 == 0)
+        a[i] == 0;
+    else
+      a[i] == (i+1)/2;
+      
+      }
+  
+  
+  function void post_randomize();
+
+    $display("Value of a is %p",a);
+  endfunction
+endclass
+
+module tb;
+  
+  cons c;
+initial begin
+  c = new();
+  c.randomize();  
+end
+endmodule

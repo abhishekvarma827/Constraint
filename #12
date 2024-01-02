@@ -1,0 +1,28 @@
+//Q12: Write a constraint such that even locations contains odd numbers and odd locations contains even numbers.
+
+
+class abhi;
+  rand int a[];
+  
+  constraint c_0 {a.size() == 10;}
+  constraint c_1 {foreach (a[i])
+      a[i] inside {[0:50]};}
+  constraint c_2 {foreach(a[i])
+    if(i%2 == 0)
+      a[i]%2 == 1;
+    else 
+      a[i]%2 == 0;} 
+ 
+endclass
+
+module tb;
+  abhi ab;
+  initial begin
+    ab = new();
+    ab.randomize();
+    foreach(ab.a[i])
+      begin
+        $display("Index is [%0d] and Value is [%0d]",i,ab.a[i]);
+  end
+  end
+endmodule

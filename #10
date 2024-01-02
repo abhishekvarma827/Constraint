@@ -1,0 +1,27 @@
+//10) Write a constraint for a 32 bit rand variable such that it should have 12 number of 1's non consecutively.
+
+
+class cons;
+  randc bit [31:0] a;
+  //constraint c_0 {$countbits(a,1) ==12;}  
+  constraint c_1 {$countones(a) == 16;}
+  constraint c_2 {foreach(a[i])
+    if ( a[i] == 0)
+      a[i] != a[i-1];		
+    }
+  
+  function void post_randomize();
+
+    $display("Randomized 32 bit variable having 12 ones is = %b",a);
+    $display("Displaying the number of ones in the number = %d", $countones(a));
+  endfunction
+endclass
+
+module tb;
+  
+  cons c;
+initial begin
+  c = new();
+  c.randomize();  
+end
+endmodule

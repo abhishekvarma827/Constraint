@@ -1,0 +1,28 @@
+//13) Write a SystemVerilog program to randomize a 32-bit variable, but only randomize the 12th bit.
+
+
+class abhi;
+rand bit [31:0] a;
+
+ // constraint c_0 {$countones (a) == 15;}
+  constraint c_1 {foreach (a[i])
+    if (i == 12)
+      
+      a[i] inside {[0:1]};
+      else 
+        a[i] == 0;}
+  //constraint c_2 {solve c_1 before c_2;}    
+  
+endclass
+
+module tb;
+  abhi ab;
+  initial 
+    begin
+      ab = new();
+      repeat(100)
+      ab.randomize();
+      foreach(ab.a[i])
+        $display("Randomized 12 bit is [%b]",ab.a);
+    end
+endmodule

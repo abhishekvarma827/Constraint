@@ -1,0 +1,32 @@
+//14) Write a constraint on two dimensional array for generating even numbers in the first 4 locations and odd numbers in the next 4 locations.Also the even number should be in multiple of 4 and odd number should be multiple of 3.
+
+
+
+class abhi;
+  rand int a [2][4];
+  
+  constraint c_0 {foreach (a[i])
+    foreach (a[i][j]) 
+      a[i][j] inside {[1:48]};}
+  
+  constraint c_1 {foreach (a[i])
+    foreach(a[i][j])
+      if (i == 0)
+        a[i][j]%4 == 0;
+      else
+        a[i][j]%2!=0 && a[i][j]%3 ==0;}              
+    
+  function void post_randomize();
+    $display("Value is %p",a);
+  endfunction 
+  
+endclass
+
+
+module tb;
+  abhi ab;
+  initial begin
+    ab = new();
+    ab.randomize();
+  end
+endmodule
